@@ -32,14 +32,23 @@ function performRequest(uri, transactionReq, options, callback) {
   httpOptions.uri = uri;
 
   try {
-    httpOptions.body = getBodyAsBuffer(
-      transactionReq.body,
-      transactionReq.bodyEncoding,
-    );
-    httpOptions.headers = normalizeContentLengthHeader(
-      transactionReq.headers,
-      httpOptions.body,
-    );
+    // These methods are not supposed to have a body
+    if (['GET', 'HEAD', 'DELETE'].includes(httpOptions.method)) {
+      if (transactionReq.body) {
+        throw(new Error(`${httpOptions.method} requests should not have body`));
+      }
+
+      httpOptions.headers = transactionReq.headers;
+    } else {
+      httpOptions.body = getBodyAsBuffer(
+        transactionReq.body,
+        transactionReq.bodyEncoding,
+      );
+      httpOptions.headers = normalizeContentLengthHeader(
+        transactionReq.headers,
+        httpOptions.body,
+      );
+    }
 
     const protocol = httpOptions.uri.split(':')[0].toUpperCase();
     logger.debug(
