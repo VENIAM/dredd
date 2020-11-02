@@ -1,5 +1,5 @@
 {
-  "name": "dredd-transactions",
+  "name": "@veniam/dredd-transactions",
   "version": "9.2.2",
   "description": "Compiles HTTP Transactions (Request-Response pairs) from an API description document",
   "main": "index.js",
