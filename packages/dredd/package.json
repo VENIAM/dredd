@@ -1,6 +1,6 @@
 {
   "name": "@veniam/dredd",
-  "version": "13.1.2",
+  "version": "13.1.5",
   "description": "HTTP API Testing Framework",
   "main": "build/index.js",
   "bin": {
